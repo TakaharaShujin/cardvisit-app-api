@@ -1,23 +1,15 @@
 const { User } = require('../lib/models');
 
 module.exports = {
-  login: function (request, response) {
-    User.find({ email: request.body.email, pass: request.body.password }, function (err, data) {
-      if (err) return response.json(err);
-      if (data.length > 0) {
-        user = {
-          email: data[0].email,
-          status: data[0].status,
-          islogin: true
-        };
-        return response.status(200).json({ message: 'Giriş başarılı', user: user });
-      } else {
-        user = {
-          islogin: false
-        };
-        return response.status(400).json({ message: 'Giriş başarısız', user: user });
-      }
-    })
+  login: function (req, res) {
+    // User.find({ email: req.body.email, pass: req.body.password }, function (err, data) {
+    // if (err) return res.json(err);
+    // })
+    if (req.body.email == 'demo@demo.com' && req.body.password == 'demodemo') {
+      return res.json({ message: 'Giriş başarılı', token: 'sgl3R9qqgzNKkVSZQmx6OWnJ7GvLhx85' });
+    } else {
+      return res.status(404).json({ message: 'Kullanıcı doğrulanamadı!' });
+    }
   },
   store: function (request, response) {
     User.find({ email: request.body.email, pass: request.body.password }, function (err, data) {
